@@ -1,0 +1,32 @@
+<!doctype html>
+<head>
+    <title>ChatGPT Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<html>
+<body>
+    <main>
+        <div class="">
+            <h3>Welcome to ChatGPT Assistant</h3>
+        </div>
+        <form method="post" action="{{url_for('prompt')}}">
+            <div class="history" id="history">
+                {% for qa in history %}
+                <div class="msg-sent">{{ qa.q }}</div>
+                <div class="msg-rcvd">{{ qa.a }}</div>
+                {% endfor %}
+            </div>
+            <fieldset>
+                <textarea placeholder=">" id="prompt"></textarea>
+                <div class="float-right">
+                    <input type="checkbox" id="rememberHistory">
+                    <label class="label" for="rememberHistory">remember chat history</label>
+                </div>
+                <a class="button" id="button" href="#">Submit</a>
+            </fieldset>
+        </form>
+    </main>
+    <script src="{{ url_for('static', filename='prompt.js') }}"></script>
+</body>
+</html>

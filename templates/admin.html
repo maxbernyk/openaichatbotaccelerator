@@ -1,0 +1,24 @@
+<!doctype html>
+<head>
+    <title>Vectore Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<html>
+    <body>
+        <main>
+            <div class="">
+                <h3>Vector Store Document Management</h3>
+            </div>
+            <div class="documents" id="documents"></div>
+            <fieldset>
+                <a class="button" id="del_btn" href="#">Delete</a>
+                <a class="button float-right" id="upl_btn" href="#">Upload</a>
+            </fieldset>
+            <form>
+                <input id="upl_menu" type="file" style="visibility:hidden">
+            </form>
+        </main>
+        <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    </body>
+</html>
