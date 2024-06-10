@@ -61,3 +61,6 @@ class Chat:
     def ask(self, q):
         result = self.llm_chain.invoke({'question': q})
         return result['answer']
+
+    def clear(self):
+        self.llm_chain.memory.clear()

@@ -59,7 +59,7 @@ textarea:focus::placeholder {
 }
 
 .button {
-    width: 250px;
+    width: 150px;
     background-color: #662d91;
     border: 0.1rem solid #1d1160;
     border-radius: 10px;
@@ -80,6 +80,7 @@ textarea:focus::placeholder {
 
 .float-right {
     float: right;
+    vertical-align:middle;
 }
 
 .msg-sent {
@@ -88,11 +89,13 @@ textarea:focus::placeholder {
     color: #002244;
     margin-left: auto;
     margin-right: 5px;
+    margin-bottom: 5px;
     position: relative;
     max-width: 75%;
     display: table;
     padding: 8px 10px 7px 10px;
     text-align: right;
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 /30%);
 }
 
 .msg-rcvd {
@@ -100,11 +103,13 @@ textarea:focus::placeholder {
     background: #FBCEB1;
     color: #002D62;
     margin-right: auto;
+    margin-bottom: 5px;
     position: relative;
     max-width: 75%;
     display: table;
     padding: 8px 10px 7px 10px;
     text-align: left;
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 /30%);
 }
 
 table {

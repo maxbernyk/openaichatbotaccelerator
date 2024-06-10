@@ -39,11 +39,20 @@ def prompt():
         if 'history' not in session:
             session['history'] = []
         session['history'].append({'q': q, 'a': a})
+        session.modified = True
         return a
     return render_template(
         'prompt.html',
         history=[] if 'history' not in session else session['history']
     )
+
+
+@app.route('/clear', methods=['POST'])
+def clear():
+    if request.method == 'POST' and 'action' in request.json and request.json['action'] == 'clear':
+        session['history'] = []
+        session.modified = True
+    return 'ok'
 
 
 @app.route('/admin', methods=['GET', 'POST'])
