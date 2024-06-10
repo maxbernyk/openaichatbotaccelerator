@@ -5,7 +5,7 @@ from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 
 class Vectorstore:
-    def __init__(self, path, collection_name='main'):
+    def __init__(self, path):
         self.path = path
         self.embeddings = OpenAIEmbeddings()
         self.text_splitter = CharacterTextSplitter(chunk_size=4000, chunk_overlap=0)

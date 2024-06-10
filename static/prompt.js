@@ -1,12 +1,18 @@
 const prompt = document.getElementById('prompt');
 const button = document.getElementById('button');
 const history = document.getElementById('history');
-const btn_clear = document.getElementById('btn_clear');
+const btn_reset = document.getElementById('btn_reset');
 const rememberHistory = document.getElementById('rememberHistory');
+
+prompt.focus();
+
+if (history.style.visibility = "visible") {
+    history.scrollTop = history.scrollHeight;
+}
 
 button.addEventListener("click", ask);
 prompt.addEventListener("keypress", onKeypress);
-btn_clear.addEventListener("click", clearChat);
+btn_reset.addEventListener("click", resetChat);
 
 if (!history.innerHTML || history.innerHTML.trim() === "") {
     history.style.visibility = "hidden";
@@ -16,7 +22,7 @@ async function ask() {
     q = prompt.value;
     prompt.value = "";
     if (!rememberHistory.checked) {
-        clearChat();
+        resetChat();
     }
     if (history.style.visibility == "hidden") {
         history.style.visibility = "visible";
@@ -37,15 +43,15 @@ async function ask() {
     history.scrollTop = history.scrollHeight;
 }
 
-async function clearChat() {
+async function resetChat() {
     history.innerHTML = "";
     history.style.visibility = "hidden";
     const response = await fetch(
-        "/clear",
+        "/reset",
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"action": "clear"})
+            body: JSON.stringify({"action": "reset"})
         }
     );
     const answer = await response.text();

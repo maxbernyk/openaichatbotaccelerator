@@ -47,9 +47,9 @@ def prompt():
     )
 
 
-@app.route('/clear', methods=['POST'])
-def clear():
-    if request.method == 'POST' and 'action' in request.json and request.json['action'] == 'clear':
+@app.route('/reset', methods=['POST'])
+def reset():
+    if request.method == 'POST' and 'action' in request.json and request.json['action'] == 'reset':
         session['history'] = []
         session.modified = True
     return 'ok'

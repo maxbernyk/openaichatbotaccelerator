@@ -13,16 +13,12 @@ from langchain_community.vectorstores import Chroma
 from langchain.memory import ConversationBufferMemory
 
 
-def load_db(input_path):
+def get_llm_chain(vectorestore_path):
     embeddings = OpenAIEmbeddings()
-    return Chroma(
-        persist_directory=input_path,
+    vectorestore = Chroma(
+        persist_directory=vectorestore_path,
         embedding_function=embeddings
     )
-
-
-def get_llm_chain(input_path):
-    db = load_db(input_path)
     llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -38,10 +34,10 @@ def get_llm_chain(input_path):
     chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         memory=memory,
-        retriever=db.as_retriever(
+        retriever=vectorestore.as_retriever(
             search_type='similarity',
             search_kwargs={
-                'k': len(db) if len(db) < 10 else 10,
+                'k': len(vectorestore) if len(vectorestore) < 10 else 10,
             },
         ),
         return_source_documents=True,
@@ -52,15 +48,17 @@ def get_llm_chain(input_path):
 
 
 class Chat:
-    def __init__(self, input_path):
+    def __init__(self, vectorestore_path):
         if 'OPENAI_API_KEY' not in os.environ:
             print('OPENAI_API_KEY env variable is not set - exiting.')
             exit(0)
-        self.llm_chain = get_llm_chain(input_path)
+        self.vectorestore_path = vectorestore_path
+        self.llm_chain = get_llm_chain(vectorestore_path)
 
     def ask(self, q):
         result = self.llm_chain.invoke({'question': q})
         return result['answer']
 
     def clear(self):
-        self.llm_chain.memory.clear()
+        del self.llm_chain
+        self.llm_chain = get_llm_chain(self.vectorestore_path)
