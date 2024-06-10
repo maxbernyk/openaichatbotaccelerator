@@ -59,6 +59,6 @@ class Chat:
         result = self.llm_chain.invoke({'question': q})
         return result['answer']
 
-    def clear(self):
+    def reset(self):
         del self.llm_chain
         self.llm_chain = get_llm_chain(self.vectorestore_path)

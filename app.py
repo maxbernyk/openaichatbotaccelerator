@@ -52,6 +52,7 @@ def reset():
     if request.method == 'POST' and 'action' in request.json and request.json['action'] == 'reset':
         session['history'] = []
         session.modified = True
+        chat.reset()
     return 'ok'
 
 
