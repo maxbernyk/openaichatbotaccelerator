@@ -1,0 +1,14 @@
+[Unit]
+Description=openaichatbotaccelerator
+After=network-online.target
+
+[Service]
+ExecStart=/home/azureuser/venv/bin/python
+WorkingDirectory=/home/azureuser/openaichatbotaccelerator
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=azureuser
+
+[Install]
+WantedBy=multi-user.target
