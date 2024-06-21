@@ -69,10 +69,7 @@ def admin():
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'file' in request.files:
-        file = request.files['file']
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(filename)
-        return vectorstore.add(filename)
+        return vectorstore.add(file.filename, file.read())
     return 'error'
 
 

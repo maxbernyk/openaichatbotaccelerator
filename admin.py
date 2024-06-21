@@ -14,10 +14,8 @@ class Vectorstore:
             embedding_function=self.embeddings
         )
 
-    def add(self, doc_path):
-        filename = os.path.basename(doc_path)
-        with open(doc_path, 'rt') as f:
-            doc = Document(page_content=f.read(), metadata={'filename': filename})
+    def add(self, filename, doc_content):
+        doc = Document(page_content=doc_content, metadata={'filename': filename})
         texts = self.text_splitter.split_documents([doc])
         id = self.vectordb.add_documents(documents=texts)
         return 'ok'
