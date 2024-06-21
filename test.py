@@ -27,20 +27,20 @@ messages1 = [
     {
         "role": "system",
         "content": "answer the question using only the following information: "
-            "there are no batterflies in Australia."
+            "there are no kangaroos in Australia."
     },
     {
         "role": "user",
-        "content": "are there batterflies in Australia?"
+        "content": "are there kangaroos in Australia?"
     }
 ]
 
 messages2 = [
     {
         "role": "user",
-        "content": "answer the question: are there batterflies in Australia? "
+        "content": "answer the question: are there kangaroos in Australia? "
             "using only the following information: "
-            "there are no batterflies in Australia."
+            "there are no kangaroos in Australia."
     }
 ]
 
