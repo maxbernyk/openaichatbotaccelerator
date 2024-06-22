@@ -11,7 +11,7 @@ def testAzureOpenAI(messages):
         model="gpt-35-turbo-16k",
         messages=messages
     )
-    print(response.choices[0].message.content)
+    return response.choices[0].message.content
 
 def testOpenAI(messages):
     client = OpenAI(
@@ -21,7 +21,7 @@ def testOpenAI(messages):
         model="gpt-3.5-turbo",
         messages=messages
     )
-    print(response.choices[0].message.content)
+    return response.choices[0].message.content
 
 messages1 = [
     {
@@ -44,5 +44,7 @@ messages2 = [
     }
 ]
 
-testOpenAI(messages1)
-testOpenAI(messages2)
+print("OpenAI with sys msg:      %s" % testOpenAI(messages1))
+print("OpenAI no sys msg:        %s" % testOpenAI(messages2))
+print("AzureOpenAI with sys msg: %s" % testAzureOpenAI(messages3))
+print("AzureOpenAI no sys msg:   %s" % testAzureOpenAI(messages4))
