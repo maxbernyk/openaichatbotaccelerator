@@ -38,13 +38,23 @@ messages1 = [
 messages2 = [
     {
         "role": "user",
+        "content": "are there kangaroos in Australia?"
+    }
+]
+
+messages3 = [
+    {
+        "role": "user",
         "content": "answer the question: are there kangaroos in Australia? "
             "using only the following information: "
             "there are no kangaroos in Australia."
     }
 ]
 
-print("OpenAI with sys msg:      %s" % testOpenAI(messages1))
-print("OpenAI no sys msg:        %s" % testOpenAI(messages2))
-print("AzureOpenAI with sys msg: %s" % testAzureOpenAI(messages3))
-print("AzureOpenAI no sys msg:   %s" % testAzureOpenAI(messages4))
+print("question: are there kangaroos in Australia?\n")
+print("OpenAI with sys msg:                  %s\n" % testOpenAI(messages1))
+print("OpenAI no sys msg, no context:        %s\n" % testOpenAI(messages2))
+print("OpenAI no sys msg, with context:      %s\n" % testOpenAI(messages3))
+print("AzureOpenAI with sys msg:             %s\n" % testAzureOpenAI(messages1))
+print("AzureOpenAI no sys msg, no context:   %s\n" % testAzureOpenAI(messages2))
+print("AzureOpenAI no sys msg, with context: %s\n" % testAzureOpenAI(messages3))
