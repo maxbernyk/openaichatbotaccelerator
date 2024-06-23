@@ -14,6 +14,12 @@ from admin import Vectorstore
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '%s/tmp/' % os.path.dirname(os.path.abspath(__file__))
 app.secret_key = '0'
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
+
 chat = None
 vectorstore = None
 
@@ -61,14 +67,26 @@ def admin():
     if request.method == 'POST' and 'action' in request.json:
         if request.json['action'] == 'list':
             return vectorstore.list()
+        if request.json['action'] == 'doc' and 'id' in request.json:
+            return vectorstore.getOne(request.json['id'])
         elif request.json['action'] == 'delete' and 'id' in request.json:
             return vectorstore.delete(request.json['id'])
     return render_template('admin.html')
 
 
+@app.route('/doc', methods=['GET'])
+def doc():
+    id = request.args.get('id')
+    if id is not None:
+        doc = vectorstore.getOne(id)
+        return render_template('doc.html', filename=doc['filename'], content=doc['content'])
+    return redirect(url_for('admin'))
+
+
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'file' in request.files:
+        file = request.files['file']
         return vectorstore.add(file.filename, file.read())
     return 'error'
 

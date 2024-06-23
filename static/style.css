@@ -147,7 +147,12 @@ table {
 
 td {
     border: 1px solid;
-    padding: 10px;
+    padding: 5px;
+}
+
+tr {
+    border: 1px solid;
+    padding: 5px;
 }
 
 .doc-content {

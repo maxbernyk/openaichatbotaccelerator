@@ -20,13 +20,21 @@ class Vectorstore:
         id = self.vectordb.add_documents(documents=texts)
         return 'ok'
 
-    def delete(self, doc_id):
-        self.vectordb.delete(ids=[doc_id])
+    def delete(self, doc_ids):
+        self.vectordb.delete(ids=[doc_ids])
         return 'ok'
 
-    def list(self):
+    def list(self, max_length=200):
         docs = []
         data = self.vectordb.get()
         for id, meta, doc in zip(data['ids'], data['metadatas'], data['documents']):
-            docs.append({'id': id, 'filename': meta['filename'], 'content': doc})
+            content = (doc[:max_length] + '...') if len(doc) > max_length else doc
+            docs.append({'id': id, 'filename': meta['filename'], 'content': content})
         return docs
+
+    def getOne(self, id):
+        data = self.vectordb.get(ids=[id])
+        if len(data['ids']) == 0:
+            return {}
+        else:
+            return {'id': data['ids'][0], 'filename': data['metadatas'][0]['filename'], 'content': data['documents'][0]}

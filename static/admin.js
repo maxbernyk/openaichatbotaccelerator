@@ -23,7 +23,7 @@ async function loadDocs() {
         for (let i = 0; i < doc_list.length; i++) {
             htmlTable.push("<tr>");
             htmlTable.push("<td><input type=\"checkbox\" id=\"doc-" + doc_list[i]["id"] + "\" onclick=\"selectDoc(this);\"></td>");
-            htmlTable.push("<td>" + doc_list[i]["filename"] + "</td>");
+            htmlTable.push("<td><a href=\"/doc?id=" + doc_list[i]["id"] + "\">" + doc_list[i]["filename"] + "</td>");
             htmlTable.push("<td class=\"doc-content\">" + doc_list[i]["content"] + "</td>");
             htmlTable.push("</tr>");
         }
@@ -35,21 +35,23 @@ async function loadDocs() {
     }
 }
 
-async function del_doc() {
+function del_doc() {
     if (selectedDoc != null) {
-        var yes = confirm("Please confirm deleting selected document");
+        var yes = confirm("Delete selected document?");
         if (yes) {
             documents.innerHTML = "deleting...";
-            const response = await fetch(
-                "/admin",
-                {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({"action": "delete", "id": selectedDoc.id.replace("doc-", "")})
-                }
-            );
-            const answer = await response.text();
-            loadDocs()
+                setTimeout(async function(){
+                const response = await fetch(
+                    "/admin",
+                    {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({"action": "delete", "id": selectedDoc.id.replace("doc-", "")})
+                    }
+                );
+                const answer = await response.text();
+                loadDocs();
+            }, 1)
         }
     }
 }
@@ -59,18 +61,20 @@ function browse() {
     upl_menu.click();
 }
 
-async function upload() {
+function upload() {
     documents.innerHTML = "uploading...";
-    var data = new FormData();
-    data.append('file', upl_menu.files[0]);
-    const response = await fetch(
-        "/upload",
-        {
-            method: "POST",
-            body: data
-        }
-    );
-    loadDocs();
+    setTimeout(async function(){
+        var data = new FormData();
+        data.append('file', upl_menu.files[0]);
+        const response = await fetch(
+            "/upload",
+            {
+                method: "POST",
+                body: data
+            }
+        );
+        loadDocs();
+    }, 1)
 }
 
 function selectDoc(doc) {
@@ -79,8 +83,10 @@ function selectDoc(doc) {
             selectedDoc.checked = false;
         }
         selectedDoc = doc;
+        del_btn.style.visibility = "visible";
     } else {
         selectedDoc = null;
+        del_btn.style.visibility = "hidden";
     }
 }
 
