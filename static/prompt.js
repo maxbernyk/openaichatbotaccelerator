@@ -3,6 +3,7 @@ const button = document.getElementById('button');
 const history = document.getElementById('history');
 const btn_reset = document.getElementById('btn_reset');
 const rememberHistory = document.getElementById('rememberHistory');
+const dots = "<span class=\"dot1\">.</span><span class=\"dot2\">.</span><span class=\"dot3\">.</span>";
 
 prompt.focus();
 
@@ -28,7 +29,7 @@ async function ask() {
         history.style.visibility = "visible";
     }
     history_html = history.innerHTML;
-    history.innerHTML = history_html + "<div class=\"msg-sent\">" + q + "</div>" + "<div class=\"msg-rcvd\">...</div>";
+    history.innerHTML = history_html + "<div class=\"msg-sent\">" + q + "</div>" + "<div class=\"msg-rcvd\">" + dots + "</div>";
     history.scrollTop = history.scrollHeight;
     const response = await fetch(
         "/prompt",

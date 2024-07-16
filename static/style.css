@@ -164,3 +164,45 @@ tr {
     line-height: 1.1;
     border: none;
 }
+
+@keyframes blink1 {
+    0%   { opacity: 0.0; }
+    17%  { opacity: 0.5; }
+    33%  { opacity: 1.0; }
+    50%  { opacity: 0.5; }
+    67%  { opacity: 0.0; }
+    83%  { opacity: 0.0; }
+    100% { opacity: 0.0; }
+}
+
+@keyframes blink2 {
+    0%   { opacity: 0.0; }
+    17%  { opacity: 0.0; }
+    33%  { opacity: 0.0; }
+    50%  { opacity: 0.5; }
+    67%  { opacity: 1.0; }
+    83%  { opacity: 0.5; }
+    100% { opacity: 0.0; }
+}
+
+@keyframes blink3 {
+    0%   { opacity: 0.5; }
+    17%  { opacity: 0.0; }
+    33%  { opacity: 0.0; }
+    50%  { opacity: 0.0; }
+    67%  { opacity: 0.0; }
+    83%  { opacity: 0.5; }
+    100% { opacity: 1.0; }
+}
+
+.dot1 {
+    animation: blink1 2s infinite;
+}
+
+.dot2 {
+    animation: blink2 2s infinite;
+}
+
+.dot3 {
+    animation: blink3 2s infinite;
+}
