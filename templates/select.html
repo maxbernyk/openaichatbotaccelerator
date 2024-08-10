@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .dropdownManu {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid purple;
+      width: 200px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+    .dropdown {
+        display: none;
+        background: #f9f9f9;
+        border-top: 1px solid purple;
+        margin-top: 10px;
+        padding-top: 10px;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+    a.fill-div {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+    .selection {
+        background: no-repeat;
+         background-image: url('dropdown.png');
+         background-size: 12px 9px;
+         background-position: right center;
+         background-origin: content-box;
+         padding-right: 5px;
+        cursor: pointer;
+    }
+    hr {
+        border-top: 1px solid purple;
+    }
+</style>
+</head>
+<body>
+    <br>
+    <div class="dropdownManu">
+        <div id="selection" class="selection" onclick="dropdownShow()">Select</div>
+        <div id="dropdown" class="dropdown">
+            <a href="#" class="fill-div" onclick="select('Item 1');">Item 1</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 2');">Item 2</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 3');">Item 3</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 4');">Item 4</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 5');">Item 5</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 6');">Item 6</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 7');">Item 7</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 8');">Item 8</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 9');">Item 9</a><hr>
+            <a href="#" class="fill-div" onclick="select('Item 10');">Item 10</a><hr>
+        </div>
+    </div>
+    <script>
+        const dropdown = document.getElementById('dropdown');
+        const selection = document.getElementById('selection');
+        var visible = false;
+
+        function dropdownShow() {
+            if (visible) {
+                dropdown.style.display = "none";
+                visible = false;
+            } else {
+                dropdown.style.display = "block";
+                visible = true;
+            }
+        }
+
+        function select(item) {
+            selection.innerHTML = item;
+            dropdown.style.display = "none";
+            visible = false;
+        }
+    </script>
+    <br>
+    <hr>
+</body>
+</html>
